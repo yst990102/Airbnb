@@ -261,7 +261,7 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // const configData = JSON.parse(fs.readFileSync('../frontend/src/config.json'));
 // const port = 'BACKEND_PORT' in configData ? configData.BACKEND_PORT : process.env.PORT;
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 const server = app.listen(port, '0.0.0.0', () => {
   const request = require('request');
