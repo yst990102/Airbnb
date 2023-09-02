@@ -259,12 +259,23 @@ app.get('/', (req, res) => res.redirect('/docs'));
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-const configData = JSON.parse(fs.readFileSync('../frontend/src/config.json'));
-const port = 'BACKEND_PORT' in configData ? configData.BACKEND_PORT : 5033;
+// const configData = JSON.parse(fs.readFileSync('../frontend/src/config.json'));
+// const port = 'BACKEND_PORT' in configData ? configData.BACKEND_PORT : process.env.PORT;
+const port = process.env.PORT || 3000;
 
-const server = app.listen(port, () => {
+const server = app.listen(port, '0.0.0.0', () => {
+  const request = require('request');
+  request('https://api.ipify.org', function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      const ip = body;
+      console.log('IP地址:', ip);
+    }
+  });
+
   console.log(`Backend is now listening on port ${port}!`);
   console.log(`For API docs, navigate to http://localhost:${port}`);
 });
+
+
 
 export default server;
